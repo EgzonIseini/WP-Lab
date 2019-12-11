@@ -1,0 +1,87 @@
+
+### Creating Ingredients
+// name=Cheese&spicy=false&amount=1&veggie=true
+// name=Tomato Sauce&spicy=false&amount=1&veggie=true
+// name=Pepperoni&spicy=true&amount=1&veggie=false
+// name=Mushrooms&spicy=false&amount=1&veggie=true
+// name=Tuna&spicy=false&amount=1&veggie=false
+POST http://localhost:8080/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=Mushrooms&spicy=false&amount=1&veggie=true
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+  client.assert(response.headers.valueOf("Location")!= null, "Invalid Location");
+  client.assert(response.body.hasOwnProperty("slotId"), 'Can not find the slotId');
+  client.global.set("newSlotUrl", response.headers.valueOf("Location"));
+  client.global.set("slotId", response.body["slotId"]);
+});
+%}
+###
+
+### Modify Ingredient
+PATCH http://localhost:8080/ingredients/5
+Content-Type: application/x-www-form-urlencoded
+
+name=Mozzarella&spicy=false&veggie=true
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 201");
+  client.assert(response.body.hasOwnProperty("slotId"), 'Can not find the slotId');
+});
+%}
+###
+
+### Deleting Ingredient
+DELETE http://localhost:8080/ingredients/7
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+###
+
+### Paged Return
+GET http://localhost:8080/ingredients?page=1&size=2
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+###
+
+### Get Ingredient
+GET http://localhost:8080/ingredients/4
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+###
+
+### Get All Spicy Ingredients
+GET http://localhost:8080/ingredients?spicy=true
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+###
+
+###
+GET http://localhost:8080/ingredients/2/pizzas
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+###

@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Pizza Order page - Welcome and choose pizza</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        thead * {
+            height: 3em;
+            text-align: center;
+            background: black;
+            color: wheat;
+            font-weight: bold;
+        }
+
+        tbody {
+            text-align: center;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>List of Orders</h1>
+</header>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Client Name</th>
+                <th>Client Address</th>
+                <th>Pizza Type</th>
+                <th>Pizza Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.getOrderId()}">100000000</td>
+                <td th:text="${order.getClientName()}">Egzon Iseini</td>
+                <td th:text="${order.getClientAddress()}">ulica Something br5</td>
+                <td th:text="${order.getPizzaType()}">Fungi</td>
+                <td th:text="${order.getPizzaSize()}">Family</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--<form th:action="@{/pizzaSize}" method="post">
+        <div th:each="pizza : ${pizzas}">
+            <input th:type="radio" th:name="pizza" th:value="${pizza.getName()}" th:required> <span th:text="${pizza.getDescription()}">Something</span>
+        </div>
+
+        <br/>
+        <input type="submit" value="Submit">-->
+    </form>
+</main>
+</body>
+</html>

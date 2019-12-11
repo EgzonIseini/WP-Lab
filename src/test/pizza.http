@@ -1,0 +1,90 @@
+// name=Cheese&spicy=false&amount=1&veggie=true
+// name=Tomato Sauce&spicy=false&amount=1&veggie=true
+// name=Pepperoni&spicy=true&amount=1&veggie=false
+// name=Mushrooms&spicy=false&amount=1&veggie=true
+// name=Tuna&spicy=false&amount=1&veggie=false
+
+### Create Pizza
+POST http://localhost:8080/pizzas
+Content-Type: application/x-www-form-urlencoded
+
+name=Carbonara&ingredient=1&ingredient=2&ingredient=3
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+  client.assert(response.headers.valueOf("Location")!= null, "Invalid Location");
+  client.assert(response.body.hasOwnProperty("slotId"), 'Can not find the slotId');
+  client.global.set("newSlotUrl", response.headers.valueOf("Location"));
+  client.global.set("slotId", response.body["slotId"]);
+});
+%}
+###
+
+### Modify Pizza
+PUT http://localhost:8080/pizzas/Carbonara
+Content-Type: application/x-www-form-urlencoded
+
+ingredient=1&ingredient=2&ingredient=4
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 201");
+  client.assert(response.body.hasOwnProperty("slotId"), 'Can not find the slotId');
+});
+%}
+
+### Delete Pizza
+DELETE http://localhost:8080/pizzas/Margarita
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+###
+
+### Get All Pizzas
+GET http://localhost:8080/pizzas
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+###
+
+### Get Pizza By ID
+GET http://localhost:8080/pizzas/Carbonara
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+###
+GET http://localhost:8080/pizzas?totalIngredients=4
+Content-Type: application/x-www-form-urlencoded
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
+###
+GET http://localhost:8080/pizzas/compare?pizza1=Domashna&pizza2=Carbonara
+Content-Type: application/x-www-form-urlencoded
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 400, "Response status is not 400");
+});
+%}
+
+###
