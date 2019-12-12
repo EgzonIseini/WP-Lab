@@ -12,8 +12,6 @@ public interface PizzaService {
 
     Pizza save(Pizza pizza);
 
-    void delete(Pizza pizza);
-
     void deleteById(String name);
 
     List<Pizza> findAll();
@@ -22,4 +20,5 @@ public interface PizzaService {
 
     List<Pizza> findPizzasByIngredientsLessThan(int ingredientsNumber);
 
+    List<Pizza> findPizzasWithIngredientId(long id);
 }

@@ -18,9 +18,7 @@ public interface IngredientService {
 
     Page<Ingredient> getAllPaged(int page, int size);
 
-    List<Ingredient> findAllSpicy();
-
-    List<Pizza> findPizzasWithIngredientId(long id);
+    List<Ingredient> findAllSpicy(boolean spicy);
 
     List<Ingredient> comparePizzas(Pizza pizza1, Pizza pizza2);
 

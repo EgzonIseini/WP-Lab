@@ -1,21 +1,16 @@
 package mk.ukim.finki.wp.lab.repository;
 
 import mk.ukim.finki.wp.lab.model.Ingredient;
-import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface IngredientRepository {
+public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
-    Ingredient save(Ingredient ingredient);
+    long countAllBySpicyTrue();
 
-    Ingredient update(Ingredient ingredient);
+    boolean existsByName(String name);
 
-    Page<Ingredient> findAll(int page, int size);
+    List<Ingredient> findAllBySpicyEquals(boolean equals);
 
-    List<Ingredient> findAllSpicy();
-
-    Ingredient find(long id);
-
-    void delete(long id);
 }

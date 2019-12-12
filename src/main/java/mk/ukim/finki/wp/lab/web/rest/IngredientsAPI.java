@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.lab.web.rest;
 import mk.ukim.finki.wp.lab.model.Ingredient;
 import mk.ukim.finki.wp.lab.model.Pizza;
 import mk.ukim.finki.wp.lab.service.IngredientService;
+import mk.ukim.finki.wp.lab.service.PizzaService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -15,9 +16,11 @@ import java.util.List;
 public class IngredientsAPI {
 
     private final IngredientService service;
+    private final PizzaService pizzaService;
 
-    public IngredientsAPI(IngredientService service) {
+    public IngredientsAPI(IngredientService service, PizzaService pizzaService) {
         this.service = service;
+        this.pizzaService = pizzaService;
     }
 
     @PostMapping
@@ -54,7 +57,7 @@ public class IngredientsAPI {
 
     @GetMapping(params = "spicy")
     public List<Ingredient> getAllSpicyIngredients(@RequestParam(value = "spicy") boolean spicy) {
-        return service.findAllSpicy();
+        return service.findAllSpicy(spicy);
     }
 
     @GetMapping("/{id}")
@@ -64,7 +67,7 @@ public class IngredientsAPI {
 
     @GetMapping("/{id}/pizzas")
     public List<Pizza> getPizzasWithIngredient(@PathVariable long id) {
-        return service.findPizzasWithIngredientId(id);
+        return pizzaService.findPizzasWithIngredientId(id);
     }
 
 }

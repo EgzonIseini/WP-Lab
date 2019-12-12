@@ -8,7 +8,7 @@ public interface OrderService{
 
     Order placeOrder(Order order);
 
-    Order getOrder(String id);
+    Order getOrder(long id);
 
     List<Order> getOrders();
 }

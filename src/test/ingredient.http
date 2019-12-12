@@ -8,7 +8,7 @@
 POST http://localhost:8080/ingredients
 Content-Type: application/x-www-form-urlencoded
 
-name=Mushrooms&spicy=false&amount=1&veggie=true
+name=Pepperoni&spicy=true&amount=1&veggie=false
 
 
 > {%
@@ -23,7 +23,7 @@ client.test("Request executed successfully", function() {
 ###
 
 ### Modify Ingredient
-PATCH http://localhost:8080/ingredients/5
+PATCH http://localhost:8080/ingredients/1
 Content-Type: application/x-www-form-urlencoded
 
 name=Mozzarella&spicy=false&veggie=true
@@ -37,7 +37,7 @@ client.test("Request executed successfully", function() {
 ###
 
 ### Deleting Ingredient
-DELETE http://localhost:8080/ingredients/7
+DELETE http://localhost:8080/ingredients/3
 
 > {%
 client.test("Request executed successfully", function() {
@@ -47,7 +47,7 @@ client.test("Request executed successfully", function() {
 ###
 
 ### Paged Return
-GET http://localhost:8080/ingredients?page=1&size=2
+GET http://localhost:8080/ingredients?page=0&size=2
 
 > {%
 client.test("Request executed successfully", function() {
