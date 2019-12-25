@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = (props) => {
 
     return (
         <header>
             <nav className="navbar navbar-light navbar-expand-md sticky-top bg-light text-capitalize shadow">
-                <div className="container-fluid"><Link to={"/"} className="navbar-brand" data-bs-hover-animate="pulse"
+                <div className="container-fluid"><Link to={"/"}  className="navbar-brand" data-bs-hover-animate="pulse"
                                                     style={{
                                                         fontFamily: "'Alfa Slab One', cursive",
                                                         fontSize: "22px",
@@ -20,10 +20,10 @@ const Header = (props) => {
     className="navbar-toggler-icon"/></button>
                     <div className="collapse navbar-collapse" id="navcol-1">
                         <ul className="nav navbar-nav">
-                            <li className="nav-item" role="presentation"><Link to={"/"} className="nav-link active">Home</Link>
+                            <li className="nav-item" role="presentation"><NavLink to={"/"} activeClassName={"active"} className="nav-link">Home</NavLink>
                             </li>
-                            <li className="nav-item" role="presentation"><Link to={"/ingredients"} className="nav-link">Ingredients</Link></li>
-                            <li className="nav-item" role="presentation"><a className="nav-link" href="#">Pizzas</a></li>
+                            <li className="nav-item" role="presentation"><NavLink to={"/ingredients"} activeClassName={"active"} className="nav-link">Ingredients</NavLink></li>
+                            <li className="nav-item" role="presentation"><NavLink to={"/pizzas"} activeClassName={"active"} className="nav-link" href="#">Pizzas</NavLink></li>
                         </ul>
                     </div>
                 </div>

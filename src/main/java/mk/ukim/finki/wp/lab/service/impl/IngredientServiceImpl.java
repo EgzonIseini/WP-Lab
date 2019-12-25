@@ -59,6 +59,11 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public List<Ingredient> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<Ingredient> findAllSpicy(boolean spicy) {
         return repository.findAllBySpicyEquals(spicy);
     }

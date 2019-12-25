@@ -14,7 +14,7 @@ const landing = (props) => {
                 </div>
                 <div
                     className="col-12 text-left d-sm-flex d-lg-flex justify-content-sm-center justify-content-lg-center">
-                    <img className="img-fluid d-block" src="pizzaLogo.png" /></div>
+                    <img className="img-fluid d-block" src="pizzaLogo.png" alt="Mama Maria's Pizza Logo"/></div>
                 <div className="col-12 text-center d-lg-flex justify-content-lg-center" style={{ marginBottom: "2em" }}>
                     <h1 className="d-block" style={{ fontFamily: "'Alfa Slab One', cursive", fontSize: "61px" }}>Mama Mia's
                         Pizzeria</h1>

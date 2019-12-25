@@ -49,11 +49,16 @@ public class IngredientsAPI {
         service.delete(id);
     }
 
-    @GetMapping
-    public Page<Ingredient> getAllIngredients(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+    @GetMapping(params = "page, size")
+    public Page<Ingredient> getAllIngredientsPaged(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                               @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
 
         return service.getAllPaged(page, size);
+    }
+
+    @GetMapping
+    public List<Ingredient> getAllIngredients() {
+        return service.getAll();
     }
 
     @GetMapping(params = "spicy")
