@@ -5,6 +5,7 @@ const ingredientRow = (props) => {
         <tr className={"text-capitalize"}>
             <td>{props.name}</td>
             <td>{props.description}</td>
+            <td>{props.veggie}</td>
         </tr>
     )
 };

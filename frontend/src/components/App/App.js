@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 import IngredientService from '../../repository/ingredientsRepository'
 
@@ -11,6 +11,7 @@ import IngredientsList from '../Ingredients/IngredientPage/ingredientLandingPage
 import IngredientAdd from  '../Ingredients/IngredientAdd/addIngredient'
 import IngredientEdit from '../Ingredients/IngredientEdit/editIngredient'
 import IngredientDetails from '../Ingredients/IngredientDetails/detailsIngredient'
+import PizzasList from '../Pizzas/PizzaTable/pizzasTable'
 
 class App extends Component {
 
@@ -18,11 +19,13 @@ class App extends Component {
         super(props);
         this.state = {
             ingredients: [],
+            pizzas: []
         }
     }
 
     componentDidMount() {
-        this.loadIngredients()
+        this.loadIngredients();
+        this.loadPizzas();
     }
 
     loadIngredients = () => {
@@ -70,17 +73,22 @@ class App extends Component {
                 prevState.ingredients.forEach((item) => {
 
                     if(item.id === newIngredient.id) {
-                        console.log("Found same ID.");
                         newIngredients.push(newIngredient);
                     } else newIngredients.push(item);
 
                 });
 
-                console.log(newIngredients);
-
                 return {
                     "ingredients": newIngredients
                 }
+            });
+        });
+    };
+
+    loadPizzas = () => {
+        IngredientService.fetchAllPizzas().then((data) => {
+            this.setState({
+                pizzas: data.data
             });
         });
     };
@@ -92,12 +100,14 @@ class App extends Component {
 
                 <NavigationHeader />
 
-                <Route path={"/ingredients/:ingredientId/details"} render={() => <IngredientDetails/>} />
-                <Route path={"/ingredients/:ingredientId/edit"} render={() => <IngredientEdit onIngredientUpdate={this.editIngredient}/>} />
-                <Route path={"/ingredients/new"} render={() => <IngredientAdd onIngredientAdd={this.addIngredient}/>} />
+                <Route path={"/pizzas"} exact render={() => <PizzasList pizzas={this.state.pizzas} onUpdate={this.loadPizzas}/>}/>
+                <Route path={"/ingredients/:ingredientId/details"} exact render={() => <IngredientDetails/>} />
+                <Route path={"/ingredients/:ingredientId/edit"} exact render={() => <IngredientEdit onIngredientUpdate={this.editIngredient}/>} />
+                <Route path={"/ingredients/new"} exact render={() => <IngredientAdd onIngredientAdd={this.addIngredient}/>} />
                 <Route path={"/ingredients"} exact render={() => <IngredientsList ingredients={this.state.ingredients} onIngredientRemove={this.removeIngredient} />} />
-                <Route path={"/"} exact={true} render={() => <LandingPage/>} />
+                <Route path={"/"} exact render={() => <LandingPage/>} />
 
+                <Redirect to={"/"} />
 
                 <NavigationFooter />
             </Router>

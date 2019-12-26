@@ -1,29 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 
 const addIngredient = (props) => {
 
     const history = useHistory();
+    const [inputAdded, setInputAdded] = useState({})
+
+    useEffect(() => {
+        setInputAdded(false)
+    }, [])
+
+
 
     const onFormSubmit = (e) => {
         e.preventDefault()
 
-        let ingredientName = e.target.ingredientName.value,
-                ingredientAmount = e.target.ingredientAmount.value;
-
-        if(ingredientName === "" || ingredientAmount === "") {
-            return alert("Invalid input! Ingredient name and amount cannot be empty.")
-        }
-
         const newIngredient = {
-            "name": ingredientName,
+            "name": e.target.ingredientName.value,
             "spicy": e.target.ingredientSpicy.value,
-            "amount": ingredientAmount,
+            "amount": e.target.ingredientAmount.value,
             "veggie": e.target.ingredientVeggie.value
         }
+
         props.onIngredientAdd(newIngredient)
         history.push("/ingredients")
+    }
+
+    const formInputEnabler = () => {
+        if(document.getElementById("ingredientNameInput").value !== ""
+               && document.getElementById("ingredientAmountInput").value !== "") setInputAdded(true);
+        else setInputAdded(false);
     }
 
     return (
@@ -32,19 +39,19 @@ const addIngredient = (props) => {
             <div className="card">
                 <div className="card-body">
                     <h4 className="card-title">Add Ingredient</h4>
-                    <form onSubmit={onFormSubmit}>
+                    <form onSubmit={onFormSubmit} onChange={formInputEnabler}>
                         <div className="form-group">
                             <div className="form-row">
                                 <div className="col">
                                     <div className="input-group m-2">
                                         <div className="input-group-prepend"><span
                                             className="input-group-text">Ingredient Name</span></div>
-                                        <input type="text" className="form-control" name="ingredientName"/>
+                                        <input type="text" className="form-control" name="ingredientName" id="ingredientNameInput"/>
                                     </div>
                                     <div className="input-group m-2">
                                         <div className="input-group-prepend"><span className="input-group-text">Amount</span>
                                         </div>
-                                        <input type="number" className="form-control" name="ingredientAmount"/>
+                                        <input type="number" className="form-control" name="ingredientAmount" id="ingredientAmountInput"/>
                                     </div>
                                     <div className="input-group m-2">
                                         <div className="input-group-prepend"><span className="input-group-text">Spicy</span>
@@ -70,7 +77,7 @@ const addIngredient = (props) => {
                                 <div className="col-4 d-xl-flex justify-content-xl-center align-items-xl-center">
                                     <div className="btn-group-vertical btn-group-lg flex-grow-1 justify-content-center"
                                          role="group" style={{ padding: "0em 5em" }}>
-                                        <button className="btn btn-success btn-block d-block" type="submit">Save</button>
+                                        <button className="btn btn-success btn-block d-block" type="submit" disabled={!inputAdded}>Save</button>
                                         <Link to={"/ingredients"} className="btn btn-danger btn-block text-light d-block">Discard</Link>
                                     </div>
                                 </div>
@@ -82,6 +89,6 @@ const addIngredient = (props) => {
         </div>
 
     );
-}
+};
 
 export default addIngredient;

@@ -32,6 +32,10 @@ const IngredientService = {
 
     fetchPizzasWithIngredient: (ingredientId) => {
         return axios.get("/ingredients/"+ingredientId+"/pizzas")
+    },
+
+    fetchAllPizzas: () => {
+        return axios.get("/pizzas");
     }
 };
 

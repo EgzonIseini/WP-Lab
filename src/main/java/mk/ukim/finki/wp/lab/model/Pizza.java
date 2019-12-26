@@ -37,7 +37,7 @@ public class Pizza {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Ingredient> ingredients;
 
     private boolean veggie;

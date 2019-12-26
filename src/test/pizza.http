@@ -8,7 +8,7 @@
 POST http://localhost:8080/pizzas
 Content-Type: application/x-www-form-urlencoded
 
-name=Fungi&ingredient=27&ingredient=28
+name=Veggie Margarita&ingredient=1&ingredient=5
 
 > {%
 client.test("Request executed successfully", function() {

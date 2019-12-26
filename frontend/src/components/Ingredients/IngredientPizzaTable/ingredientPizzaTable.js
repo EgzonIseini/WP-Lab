@@ -31,7 +31,7 @@ const ingredientPizzaTable = (props) => {
 
     const pizzaRows = pizzas.map((pizza, index) => {
         return (
-            <PizzaRow key={index} name={pizza.name} description={pizza.description} />
+            <PizzaRow key={index} name={pizza.name} description={pizza.description} veggie={pizza.veggie.toString()}/>
         )
     });
 
@@ -53,6 +53,7 @@ const ingredientPizzaTable = (props) => {
                     <tr>
                         <th>Pizza Name</th>
                         <th>Pizza Description</th>
+                        <th>Veggie</th>
                     </tr>
                     </thead>
                     <tbody>

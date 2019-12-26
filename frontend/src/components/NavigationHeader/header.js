@@ -20,7 +20,7 @@ const Header = (props) => {
     className="navbar-toggler-icon"/></button>
                     <div className="collapse navbar-collapse" id="navcol-1">
                         <ul className="nav navbar-nav">
-                            <li className="nav-item" role="presentation"><NavLink to={"/"} activeClassName={"active"} className="nav-link">Home</NavLink>
+                            <li className="nav-item" role="presentation"><NavLink to={"/"} activeClassName={"active"} exact className="nav-link">Home</NavLink>
                             </li>
                             <li className="nav-item" role="presentation"><NavLink to={"/ingredients"} activeClassName={"active"} className="nav-link">Ingredients</NavLink></li>
                             <li className="nav-item" role="presentation"><NavLink to={"/pizzas"} activeClassName={"active"} className="nav-link" href="#">Pizzas</NavLink></li>
